@@ -30,6 +30,12 @@
   list-style-type: none;
   align-items: center;
 }
+
+.nav-items > li:hover {
+  color: #e55427;
+  cursor: pointer;
+}
+
 .hero {
   display: flex;
   width: 80%;
@@ -91,6 +97,10 @@
   width: 100%;
 }
 
+.search > img:hover {
+  cursor: pointer;
+}
+
 .filter-btn {
   margin: 1rem 1rem 1.5rem 1rem;
   padding: 0.5rem;
@@ -124,9 +134,11 @@
   cursor: pointer;
   transform: translateY(-10px);
 }
-.pizza-image {
+.card-image {
   width: 100%;
   border-radius: 1rem;
+  height: 200px;
+  object-fit: cover;
 }
 
 .res-card div {
@@ -142,4 +154,40 @@
   font-weight: 300;
   font-size: medium;
   color: gray;
+}
+
+.shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.shimmer-card {
+  flex: 1;
+  min-width: 200px;
+  height: 300px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 1rem;
+  box-shadow: rgba(173, 168, 168, 0.437) 0px 2px 8px 0px;
+}
+
+.shimmer-photo {
+  width: 100%;
+  border-radius: 1rem;
+  height: 100px;
+  background: #ddd;
+  background: linear-gradient(to right, #f6f6f6 8%, #f0f0f0 18%, #f6f6f6 33%);
+}
+
+.shimmer-text1 {
+  height: 24px;
+  width: 100%;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  border-radius: 20px;
+  background: #ddd;
+  background: linear-gradient(to right, #f6f6f6 8%, #f0f0f0 18%, #f6f6f6 33%);
 }

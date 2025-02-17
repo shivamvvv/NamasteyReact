@@ -8,7 +8,6 @@ const AppLayout = () => {
   return (
     <div className="app">
       <Header />
-      <HeroComponent />
       <Body />
     </div>
   );
