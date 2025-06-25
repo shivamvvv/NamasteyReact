@@ -1,31 +1,39 @@
-import { search_icon } from "../Assests/assets";
+import { search_icon } from "../Assets/assets";
 import Restaurantcard from "./Restaurantcard";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Shimmer from "./shimmer";
+
 const Body = () => {
   const [listofrestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.9615398&lng=79.296468&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING%22);"
-    );
-    const json = await data.json();
-    setListOfRestaurants(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants || []
-    );
-    setFilteredRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants || []
-    );
+    setLoading(true);
+    try {
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.9615398&lng=79.296468&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING%22);"
+      );
+      const json = await data.json();
+      setListOfRestaurants(
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants || []
+      );
+      setFilteredRestaurant(
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants || []
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
-  if (listofrestaurants?.length === 0) {
+  if (loading) {
     return <Shimmer />;
   }
   return (
@@ -61,7 +69,7 @@ const Body = () => {
       </button>
       <div className="res-container">
         {filteredRestaurant.map((data) => (
-          <Restaurantcard key={data.info.id} resData={data} />
+          <Restaurantcard resData={data} key={data.info.id} />
         ))}
       </div>
     </div>
