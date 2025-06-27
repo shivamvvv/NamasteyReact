@@ -1,9 +1,10 @@
 import AssetPath from "../Assets/assets";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Header = () => {
   const [btnname, setBtnname] = useState("Sign In");
+  const onlineStatus = useOnlineStatus();
 
   const btnStyle = {
     cursor: "pointer",
@@ -32,9 +33,13 @@ const Header = () => {
         <li>
           <Link to="/contact">Contact Us</Link>
         </li>
+        <li>
+          <Link to="/grocery">Grocery</Link>
+        </li>
       </ul>
 
       <ul className="nav-items">
+        <li>Online Status : {onlineStatus ? "✅" : "🔴"} </li>
         <li>
           <img src={AssetPath.shopping_cart} alt="Cart" />
         </li>
