@@ -15,7 +15,7 @@ class About extends Component {
     //console.log("Parent render");
     return (
       <div>
-        <User
+        <UserClass
           name={"Shivam Dubey (class)"}
           location={"Raipur (class)"}
           contact={"@shivamdubey (class)"}

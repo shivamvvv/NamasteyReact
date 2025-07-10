@@ -1,7 +1,5 @@
-import { search_icon } from "../Assets/assets";
-import Restaurantcard from "./Restaurantcard";
+import Restaurantcard, { withVegLabel } from "./Restaurantcard";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Shimmer from "./shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
 
@@ -11,10 +9,10 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(false);
   const onlineStatus = useOnlineStatus();
+  const RestaurantCardVeg = withVegLabel(Restaurantcard);
   useEffect(() => {
     fetchData();
   }, []);
-
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -43,27 +41,30 @@ const Body = () => {
     return <h1>Looks like you are Offline!!!!!</h1>;
   }
   return (
-    <div className="body">
-      <div className="search">
+    <div className="w-[80%] mx-[auto]">
+      <div className="flex justify-between border-1 border-[#c4c8cc] shadow-[0px_2px_8px_0px_rgba(173,168,168,0.437)] p-2 mx-auto mt-[20px] mb-[50px] rounded-3xl max-w-3xl">
         <input
+          className="outline-none border-none p-0.5 w-[100%]"
           placeholder="Order Something !"
           value={searchText}
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
         ></input>
-        <img
-          src={search_icon}
+        <button
+          className="cursor-pointer mr-2 text-black hover:text-[#e55427]"
           onClick={() => {
             const filteredRestaurant = listofrestaurants.filter((res) =>
               res.info.name.toLowerCase().includes(searchText.toLowerCase())
             );
             setFilteredRestaurant(filteredRestaurant);
           }}
-        ></img>
+        >
+          Search
+        </button>
       </div>
       <button
-        className="filter-btn"
+        className="m-[1rem] mb-[1.5rem] p-2 outline-none border border-[#e55427] rounded-[10px] bg-[#e55427] cursor-pointer text-white"
         onClick={() => {
           const filtertheRestaurants = listofrestaurants.filter(
             (res) => res.info.avgRating > 4.0
@@ -73,10 +74,14 @@ const Body = () => {
       >
         Top Rated Restaurants
       </button>
-      <div className="res-container">
-        {filteredRestaurant.map((data) => (
-          <Restaurantcard resData={data} key={data.info.id} />
-        ))}
+      <div className="flex flex-wrap">
+        {filteredRestaurant.map((data) =>
+          data?.info?.veg ? (
+            <RestaurantCardVeg resData={data} key={data.info.id} />
+          ) : (
+            <Restaurantcard resData={data} key={data.info.id} />
+          )
+        )}
       </div>
     </div>
   );
