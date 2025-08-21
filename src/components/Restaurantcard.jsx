@@ -5,7 +5,7 @@ const Restaurantcard = (props) => {
 
   return (
     <div
-      className="flex-1 max-w-[200px] min-w-[200px] m-[10px] p-[10px] rounded-[1rem] border border-white 
+      className="flex-1 max-w-[200px] min-w-[200px]  m-[10px] p-[10px] rounded-[1rem] border border-white 
     transition-all ease-in duration-100 hover:border-[#c4c8cc] hover:shadow-[0px_2px_8px_0px_rgba(173,168,168,0.437)] hover:cursor-pointer hover:-translate-y-[10px] group-hover"
     >
       <img

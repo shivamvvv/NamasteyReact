@@ -2,6 +2,7 @@ import Restaurantcard, { withVegLabel } from "./Restaurantcard";
 import { useState, useEffect } from "react";
 import Shimmer from "./shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [listofrestaurants, setListOfRestaurants] = useState([]);
@@ -17,7 +18,7 @@ const Body = () => {
     setLoading(true);
     try {
       const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.9615398&lng=79.296468&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING%22);"
+        "https://swiggy-api-4c740.web.app/swiggy-api.json"
       );
       const json = await data.json();
       setListOfRestaurants(
@@ -77,9 +78,13 @@ const Body = () => {
       <div className="flex flex-wrap">
         {filteredRestaurant.map((data) =>
           data?.info?.veg ? (
-            <RestaurantCardVeg resData={data} key={data.info.id} />
+            <Link to={"/restaurant/" + data.info.id} key={data.info.id}>
+              <RestaurantCardVeg resData={data} />
+            </Link>
           ) : (
-            <Restaurantcard resData={data} key={data.info.id} />
+            <Link to={"/restaurant/" + data.info.id} key={data.info.id}>
+              <Restaurantcard resData={data} />
+            </Link>
           )
         )}
       </div>

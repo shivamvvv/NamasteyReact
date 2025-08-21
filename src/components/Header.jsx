@@ -3,11 +3,12 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 const Header = () => {
   const [btnname, setBtnname] = useState("Sign In");
   const onlineStatus = useOnlineStatus();
   const { loggedInUser } = useContext(UserContext);
-
+  const cartItems = useSelector((store) => store.cart.items);
   const btnStyle = {
     cursor: "pointer",
     color: "white",
@@ -42,9 +43,9 @@ const Header = () => {
 
       <ul className="flex items-center gap-3 ">
         <li>Online Status : {onlineStatus ? "✅" : "🔴"} </li>
-        <li>
-          <img src={AssetPath.shopping_cart} alt="Cart" />
-        </li>
+        <Link to="/cart">
+          <li className="font-bold">Cart-({cartItems.length} items)</li>
+        </Link>
 
         <button
           style={btnStyle}
